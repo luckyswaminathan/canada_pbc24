@@ -14,6 +14,23 @@ const AVALANCHE_FUJI_RPC_URL = process.env.AVALANCHE_FUJI_RPC_URL;
 const BNB_CHAIN_TESTNET_RPC_URL = process.env.BNB_CHAIN_TESTNET_RPC_URL;
 const BASE_GOERLI_RPC_URL = process.env.BASE_GOERLI_RPC_URL;
 
+
+require('dotenv').config();
+require("@nomiclabs/hardhat-ethers");
+
+
+module.exports = {
+  solidity: "0.7.3",
+  defaultNetwork: "sepolia",
+  networks: {
+    hardhat: {},
+    sepolia: {
+      url: ETHEREUM_SEPOLIA_RPC_URL,
+      accounts: [`0x${PRIVATE_KEY}`]
+    }
+  },
+}
+
 const config: HardhatUserConfig = {
   solidity: '0.8.19',
   networks: {
@@ -22,10 +39,10 @@ const config: HardhatUserConfig = {
     },
     hardhat: {
       chainId: 31337
-    },
+    }, 
     ethereumSepolia: {
       url: "https://sepolia.infura.io/v3/222645bd82564c34bcd01e3c67517199",
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
+      accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
       chainId: 11155111
     },
     polygonMumbai: {
